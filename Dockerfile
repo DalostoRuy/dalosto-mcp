@@ -3,20 +3,13 @@ FROM n8nio/n8n:latest
 # Muda para o usuário root para instalar pacotes do sistema e npm globalmente
 USER root
 
-# Atualiza o apk e instala as dependências necessárias para o Chrome no Alpine
+# Atualiza o apk e instala as dependências necessárias para o Chromium no Alpine
 RUN apk update && apk add --no-cache \
     chromium \
-    mesa-libgbm \
     nss \
-    atk \
-    atk-bridge \
-    libx11 \
-    libx11-xcb \
-    libxdamage \
-    libxrandr \
-    libxfixes \
-    libxi \
-    libxrender \
+    freetype \
+    harfbuzz \
+    ttf-freefont \
     ca-certificates
 
 # Instala o server-puppeteer globalmente
