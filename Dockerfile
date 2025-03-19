@@ -6,8 +6,8 @@ USER root
 RUN apk update && apk add --no-cache chromium libc6-compat git
 
 # Define a variável de cache para Puppeteer e cria o diretório
-ENV PUPPETEER_CACHE_DIR=/tmp/puppeteer-cache
-RUN mkdir -p /tmp/puppeteer-cache
+ENV PUPPETEER_CACHE_DIR=/home/node/.cache/puppeteer
+RUN mkdir -p /home/node/.cache/puppeteer
 
 # Instala o server-puppeteer globalmente
 RUN npm install -g @modelcontextprotocol/server-puppeteer
