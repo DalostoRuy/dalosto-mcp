@@ -1,25 +1,20 @@
 FROM n8nio/n8n:latest
 
-# Muda para o usuário root para instalar pacotes do sistema e npm globalmente
 USER root
 
-# Atualiza o apk e instala as dependências necessárias para o Chromium no Alpine
-RUN apk update && apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    harfbuzz \
-    ttf-freefont \
-    ca-certificates
+# Instala dependências do sistema (verifique se sua imagem é baseada em Alpine ou Debian)
+RUN apk update && apk add --no-cache chromium libc6-compat git
+
+# Define a variável de cache para Puppeteer e cria o diretório
+ENV PUPPETEER_CACHE_DIR=/tmp/puppeteer-cache
+RUN mkdir -p /tmp/puppeteer-cache
 
 # Instala o server-puppeteer globalmente
 RUN npm install -g @modelcontextprotocol/server-puppeteer
 
-# Baixa a versão do Chrome necessária para o Puppeteer
+# Baixa a versão necessária do Chrome
 RUN npx puppeteer browsers install chrome@131.0.6778.204
 
-# Define a variável de ambiente para o diretório de cache do Puppeteer
-ENV PUPPETEER_CACHE_DIR=/home/node/.cache/puppeteer
-
-# Retorna para o usuário padrão
 USER node
+
+CMD ["npm", "start"]
