@@ -16,5 +16,3 @@ RUN npm install -g @modelcontextprotocol/server-puppeteer
 RUN npx puppeteer browsers install chrome@131.0.6778.204
 
 USER node
-
-CMD ["npm", "start"]
